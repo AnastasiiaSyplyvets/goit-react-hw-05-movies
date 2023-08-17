@@ -1,19 +1,30 @@
 import React from 'react';
 import { Outlet, NavLink } from 'react-router-dom';
 import './SharedLayout.css';
+import styled from 'styled-components';
+
+const StyledLink = styled(NavLink)`
+  color: black;
+  font-weight: 700;
+  text-decoration: none;
+
+  &.active {
+    color: tomato;
+  }
+`;
 
 export const SharedLayout = () => {
   return (
-    <div class="container">
-      <header class="header">
-        <ul class="page-list">
-          <li class="page-list-item">
-            <NavLink to="/" end>
+    <div className="container">
+      <header className="header">
+        <ul className="page-list">
+          <li className="page-list-item">
+            <StyledLink to="/" end>
               Home
-            </NavLink>
+            </StyledLink>
           </li>
-          <li class="page-list-item">
-            <NavLink to="/movies">Movies</NavLink>
+          <li className="page-list-item">
+            <StyledLink to="/movies">Movies</StyledLink>
           </li>
         </ul>
       </header>
