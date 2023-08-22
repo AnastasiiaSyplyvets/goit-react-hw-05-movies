@@ -1,14 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [SearchedMovie, setSearchedMovie] = useState(null);
 
+  const [params, setParams] = useSearchParams();
+
+  // console.log(params.get('filter'));
+
   const handleInputValue = e => {
     setSearchQuery(e.target.value);
-    console.log(e.target.value);
+    // setParams({ filter: e.target.value });
+    // console.log(e.target.value);
   };
 
   const fetchRequest = () => {
@@ -34,7 +39,17 @@ const Movies = () => {
     fetchRequest();
   };
 
-  console.log(SearchedMovie);
+  const test = () => {
+    if (!SearchedMovie) {
+      return;
+    }
+    SearchedMovie.map(movie =>
+      // setParams({ filter: e.target.value });
+      setParams({ id: movie.id })
+    );
+  };
+
+  console.log(params.get('id'));
   return (
     <>
       <div>Movies</div>
@@ -46,9 +61,11 @@ const Movies = () => {
       {SearchedMovie &&
         SearchedMovie.map(movie => {
           return (
-            <ul>
-              <li key={movie.id}>
-                <Link to="/movies/:movieId">{movie.title}</Link>
+            <ul key={movie.id}>
+              <li>
+                <Link onClick={test} to={`/movies/${movie.id}`}>
+                  {movie.title} + {movie.id}
+                </Link>
               </li>
             </ul>
           );

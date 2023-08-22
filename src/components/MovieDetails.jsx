@@ -1,10 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 
 const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState([]);
+
+  const { movieId } = useParams();
+
+  console.log(movieId);
 
   const baseUrl = 'https://image.tmdb.org/t/p/w500';
   const movieUrl = movie.backdrop_path;
@@ -12,7 +16,7 @@ const MovieDetails = ({ id }) => {
 
   useEffect(() => {
     fetch(
-      'https://api.themoviedb.org/3/movie/976573?api_key=a42bf4f31f7d8fb3cfc076b340ef7462'
+      `https://api.themoviedb.org/3/movie/${movieId}?api_key=a42bf4f31f7d8fb3cfc076b340ef7462`
     )
       .then(res => res.json())
       .then(data => {
@@ -21,7 +25,7 @@ const MovieDetails = ({ id }) => {
         setGenres(data.genres);
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [movieId]);
 
   console.log(genres);
   return (
@@ -35,18 +39,18 @@ const MovieDetails = ({ id }) => {
       <h4>Genres</h4>
 
       {genres.map(item => (
-        <ul>
-          <li key={item.id}>{item.name}</li>
+        <ul key={item.id}>
+          <li>{item.name}</li>
         </ul>
       ))}
 
       <p>Additional information</p>
       <ul>
         <li>
-          <Link to="/movies/:movieId/cast">CAST</Link>
+          <Link to={`/movies/${movieId}/cast`}>CAST</Link>
         </li>
         <li>
-          <Link to="/movies/:movieId/reviews">Reviews</Link>
+          <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
         </li>
       </ul>
       <Outlet />

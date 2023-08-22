@@ -1,9 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Home = () => {
   const [trends, setTrends] = useState([]);
+  const [params, setParams] = useSearchParams();
+  // const { movieId } = useParams();
+
+  const test = () => {
+    trends.map(trend => setParams({ id: trend.id }));
+
+    console.log(params.get('id'));
+  };
 
   useEffect(() => {
     fetch(
@@ -24,7 +32,7 @@ const Home = () => {
       <ul>
         {trends.map(film =>
           film.title ? (
-            <Link to="/movies/:movieId" key={film.id}>
+            <Link onClick={test} to={`/movies/${film.id}`} key={film.id}>
               <li>{film.title}</li>
             </Link>
           ) : null
