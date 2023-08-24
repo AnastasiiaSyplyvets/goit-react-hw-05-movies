@@ -8,8 +8,6 @@ const MovieDetails = ({ id }) => {
 
   const { movieId } = useParams();
 
-  console.log(movieId);
-
   const baseUrl = 'https://image.tmdb.org/t/p/w500';
   const movieUrl = movie.backdrop_path;
   const ApiKey = 'a42bf4f31f7d8fb3cfc076b340ef7462';
@@ -20,18 +18,28 @@ const MovieDetails = ({ id }) => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setMovie(data);
+
         setGenres(data.genres);
       })
       .catch(err => console.log(err));
   }, [movieId]);
 
-  console.log(genres);
+  console.log(movie);
+  const yearCount = () => {
+    if (!movie.release_date) {
+      return;
+    }
+    return movie.release_date.slice(0, 4);
+  };
+
+  // console.log(genres);
   return (
     // { movie &&
     <div>
-      <h2>{movie.title}</h2>
+      <h2>
+        {movie.title} ({yearCount()})
+      </h2>
       <img src={`${baseUrl}${movieUrl}?api_key=${ApiKey}`} alt="movie poster" />
       <p>User score: {movie.vote_count}</p>
       <h3>Overwiew</h3>

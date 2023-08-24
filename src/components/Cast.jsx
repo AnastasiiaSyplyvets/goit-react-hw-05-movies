@@ -19,6 +19,7 @@ function Cast() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+
         setActors(data.cast);
       })
       .catch(err => console.log(err));
