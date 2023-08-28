@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
+import css from '../components/styles/home.module.css';
+
 const Home = () => {
   const [trends, setTrends] = useState([]);
   const [params, setParams] = useSearchParams();
@@ -26,7 +28,7 @@ const Home = () => {
 
   return (
     <>
-      <p>Trending Today</p>
+      <p className={css.title}>Trending Today</p>
       <ul>
         {trends.map(film =>
           film.title ? (

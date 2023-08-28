@@ -1,0 +1,42 @@
+.movieContainer {
+  margin-top: 50px;
+}
+
+.description {
+  display: flex;
+  gap: 20px;
+
+  box-shadow: -1px 1px 24px -9px rgba(66, 68, 90, 1);
+}
+
+.posterImg {
+  height: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.genres {
+  display: flex;
+  gap: 10px;
+}
+
+.genre {
+  padding: 0;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: -1px 1px 24px -9px rgba(66, 68, 90, 1);
+}
+
+.infoTitle {
+  font-weight: 500;
+}

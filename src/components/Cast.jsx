@@ -2,11 +2,11 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import css from '../components/styles/cast.module.css';
+
 function Cast() {
   const [actors, setActors] = useState([]);
   const { movieId } = useParams();
-
-  console.log(movieId);
 
   const baseApiUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -18,8 +18,6 @@ function Cast() {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
         setActors(data.cast);
       })
       .catch(err => console.log(err));
@@ -32,11 +30,12 @@ function Cast() {
         <ul key={actor.id}>
           <li key={actor.id}>
             <img
+              className={css.actorImg}
               src={`${baseApiUrl}${actor.profile_path}?api_key=${apiKey}`}
               alt={actor.name}
             />
-            <p>Name: {actor.name}</p>
-            <p>Character: {actor.character}</p>
+            <p className={css.actorText}>{actor.name}</p>
+            <p className={css.actorText}>Character: {actor.character}</p>
           </li>
         </ul>
       ))}

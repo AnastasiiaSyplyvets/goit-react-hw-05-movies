@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+
 import '../components/movies.css';
 
 const Movies = () => {
@@ -31,8 +30,6 @@ const Movies = () => {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
         if (data.results.length === 0) {
           Toastify({
             text: 'No data found!',

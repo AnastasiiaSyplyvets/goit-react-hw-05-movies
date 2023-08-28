@@ -14,8 +14,6 @@ https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=a42bf4f31f7d8fb3cf
       )
         .then(resp => resp.json())
         .then(data => {
-          console.log(data);
-
           setReviews(data.results);
         })
         .catch(err => console.log(err));
@@ -23,8 +21,6 @@ https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=a42bf4f31f7d8fb3cf
 
     fetchReviews();
   }, [movieId]);
-
-  console.log(reviews);
 
   return (
     <>
