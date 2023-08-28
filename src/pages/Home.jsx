@@ -24,8 +24,6 @@ const Home = () => {
       .catch(err => console.log(err));
   }, []);
 
-  console.log(trends);
-
   return (
     <>
       <p>Trending Today</p>
