@@ -72,7 +72,7 @@ const Movies = () => {
     );
   };
 
-  // console.log(params.get('id'));
+  console.log(params);
   return (
     <>
       <div>Movies</div>
