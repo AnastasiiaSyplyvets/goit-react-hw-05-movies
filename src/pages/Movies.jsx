@@ -6,6 +6,8 @@ import 'toastify-js/src/toastify.css';
 
 import '../components/movies.css';
 
+import css from '../components/styles/movies.module.css';
+
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [SearchedMovie, setSearchedMovie] = useState(null);
@@ -72,10 +74,13 @@ const Movies = () => {
   console.log(params);
   return (
     <>
-      <div>Movies</div>
       <form onSubmit={handleFormSubmit}>
-        <input id="input" onChange={handleInputValue}></input>
-        <button>Search</button>
+        <input
+          className={css.input}
+          id="input"
+          onChange={handleInputValue}
+        ></input>
+        <button className={css.searchBtn}>Search</button>
       </form>
 
       {SearchedMovie &&
