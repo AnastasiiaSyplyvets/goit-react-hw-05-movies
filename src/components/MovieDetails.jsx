@@ -1,12 +1,15 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+// import { useRef } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 
 import css from '../components/styles/movieDetails.module.css';
 
 const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState([]);
+  const location = useLocation();
+  // const backLinkRef = useRef(location.state?.from ?? './movies');
 
   const { movieId } = useParams();
 
@@ -34,10 +37,11 @@ const MovieDetails = ({ id }) => {
     }
     return movie.release_date.slice(0, 4);
   };
-
+  console.log('location moviedetails', location);
   return (
     <div className={css.movieContainer}>
-      {/* <Link to={'/movies'}>Go back</Link> */}
+      <Link to={location.state?.from ?? '/'}>Go back</Link>
+      {/* <Link to={backLinkRef.current}>Go back</Link> */}
       <div className={css.description}>
         <img
           className={css.posterImg}
@@ -72,7 +76,9 @@ const MovieDetails = ({ id }) => {
           </li>
         </ul>
       </div>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

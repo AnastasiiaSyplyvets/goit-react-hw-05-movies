@@ -1,15 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 
 import css from '../components/styles/home.module.css';
 
 const Home = () => {
   const [trends, setTrends] = useState([]);
   const [params, setParams] = useSearchParams();
+  const location = useLocation();
+
   // const { movieId } = useParams();
 
-  const test = () => {
+  const handleTrend = () => {
     trends.map(trend => setParams({ id: trend.id }));
 
     console.log(params.get('id'));
@@ -32,7 +34,12 @@ const Home = () => {
       <ul>
         {trends.map(film =>
           film.title ? (
-            <Link onClick={test} to={`/movies/${film.id}`} key={film.id}>
+            <Link
+              state={location}
+              onClick={handleTrend}
+              to={`/movies/${film.id}`}
+              key={film.id}
+            >
               <li>{film.title}</li>
             </Link>
           ) : null

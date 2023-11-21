@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
@@ -14,10 +14,16 @@ const Movies = () => {
 
   const [params, setParams] = useSearchParams();
 
+  const location = useLocation();
+
   // console.log(params.get('filter'));
 
   const handleInputValue = e => {
     setSearchQuery(e.target.value);
+    setParams({ query: e.target.value });
+
+    // location.state = e.target.value;
+
     // setParams({ filter: e.target.value });
     // console.log(e.target.value);
   };
@@ -59,9 +65,11 @@ const Movies = () => {
     e.preventDefault();
 
     fetchRequest();
+
+    // setParams({ query: input.target.value });
   };
 
-  const test = () => {
+  const getMovieId = () => {
     if (!SearchedMovie) {
       return;
     }
@@ -72,6 +80,7 @@ const Movies = () => {
   };
 
   console.log(params);
+  console.log('location', location);
   return (
     <>
       <form onSubmit={handleFormSubmit}>
@@ -86,9 +95,13 @@ const Movies = () => {
       {SearchedMovie &&
         SearchedMovie.map(movie => {
           return (
-            <ul key={movie.id}>
+            <ul className={css.movieList} key={movie.id}>
               <li>
-                <Link onClick={test} to={`/movies/${movie.id}`}>
+                <Link
+                  state={{ from: location }}
+                  onClick={getMovieId}
+                  to={`/movies/${movie.id}`}
+                >
                   {movie.title}
                 </Link>
               </li>

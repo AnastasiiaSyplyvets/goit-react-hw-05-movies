@@ -35,3 +35,8 @@ input:focus {
 
   font-size: 14px;
 }
+
+.movieList {
+  margin: 0;
+  margin-bottom: 10px;
+}
