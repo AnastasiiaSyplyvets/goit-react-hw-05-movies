@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
 
 import fetchMovies from '../components/FetchAPIs/fetchMovies';
-import Toastify from 'toastify-js';
+import { toast } from 'react-toastify';
+
 import 'toastify-js/src/toastify.css';
 
 import '../components/movies.css';
@@ -25,7 +26,6 @@ const Movies = () => {
     // location.state = e.target.value;
 
     // setParams({ filter: e.target.value });
-    // console.log(e.target.value);
   };
 
   const fetchRequest = () => {
@@ -36,21 +36,16 @@ const Movies = () => {
     fetchMovies(searchQuery)
       .then(function (response) {
         if (response.data.results.length === 0) {
-          Toastify({
-            text: 'No data found!',
-            duration: 3000,
-            destination: 'https://github.com/apvarun/toastify-js',
-            newWindow: true,
-            close: true,
-            gravity: 'top', // `top` or `bottom`
-            position: 'center', // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-              background:
-                'radial-gradient(circle, rgba(236,9,32,1) 0%, rgba(42,20,18,1) 100%)',
-            },
-            onClick: function () {}, // Callback after click
-          }).showToast();
+          toast.error('No movies found :(', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
         }
 
         setSearchedMovie(response.data.results);
@@ -62,6 +57,19 @@ const Movies = () => {
 
   const handleFormSubmit = e => {
     e.preventDefault();
+
+    if (searchQuery === '') {
+      toast.info('Please enter movie name!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
 
     fetchRequest();
 
