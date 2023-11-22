@@ -3,7 +3,7 @@ import React from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 
-import css from '../components/styles/movieDetails.module.css';
+import css from '../../components/styles/movieDetails.module.css';
 
 const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});

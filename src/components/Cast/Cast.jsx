@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import css from '../components/styles/cast.module.css';
+import css from '../../components/styles/cast.module.css';
 
 function Cast() {
   const [actors, setActors] = useState([]);

@@ -16,8 +16,6 @@ const Movies = () => {
 
   const location = useLocation();
 
-  // console.log(params.get('filter'));
-
   const handleInputValue = e => {
     setSearchQuery(e.target.value);
     setParams({ query: e.target.value });
@@ -80,7 +78,7 @@ const Movies = () => {
   };
 
   console.log(params);
-  console.log('location', location);
+
   return (
     <>
       <form onSubmit={handleFormSubmit}>
