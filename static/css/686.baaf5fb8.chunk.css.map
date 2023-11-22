@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/686.baaf5fb8.chunk.css","mappings":"AAAA,sBAEE,kBAAmB,CADnB,WAEF,CAEA,wBACE,gBAAiB,CACjB,eACF","sources":["components/styles/cast.module.css"],"sourcesContent":[".actorImg {\n  width: 100px;\n  border-radius: 10px;\n}\n\n.actorText {\n  font-weight: 12px;\n  font-weight: 500;\n}\n"],"names":[],"sourceRoot":""}
