@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
+
+import fetchMovies from '../components/FetchAPIs/fetchMovies';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
@@ -31,12 +33,9 @@ const Movies = () => {
       return;
     }
 
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&api_key=a42bf4f31f7d8fb3cfc076b340ef7462`
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (data.results.length === 0) {
+    fetchMovies(searchQuery)
+      .then(function (response) {
+        if (response.data.results.length === 0) {
           Toastify({
             text: 'No data found!',
             duration: 3000,
@@ -54,9 +53,11 @@ const Movies = () => {
           }).showToast();
         }
 
-        setSearchedMovie(data.results);
+        setSearchedMovie(response.data.results);
       })
-      .catch(err => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const handleFormSubmit = e => {

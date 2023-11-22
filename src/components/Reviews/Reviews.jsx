@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import FetchReviews from '../../components/FetchAPIs/FetchReviews';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -8,15 +9,13 @@ const Reviews = () => {
 
   useEffect(() => {
     const fetchReviews = () => {
-      fetch(
-        `
-https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=a42bf4f31f7d8fb3cfc076b340ef7462`
-      )
-        .then(resp => resp.json())
-        .then(data => {
-          setReviews(data.results);
+      FetchReviews(movieId)
+        .then(function (response) {
+          setReviews(response.data.results);
         })
-        .catch(err => console.log(err));
+        .catch(function (error) {
+          console.log(error);
+        });
     };
 
     fetchReviews();

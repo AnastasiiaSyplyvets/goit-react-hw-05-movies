@@ -2,6 +2,7 @@ import React from 'react';
 // import { useRef } from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import fetchMovieDetails from '../FetchAPIs/FetchMovieDetails';
 
 import css from '../../components/styles/movieDetails.module.css';
 
@@ -18,17 +19,14 @@ const MovieDetails = ({ id }) => {
   const ApiKey = 'a42bf4f31f7d8fb3cfc076b340ef7462';
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=a42bf4f31f7d8fb3cfc076b340ef7462`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setMovie(data);
-        console.log(data);
-
-        setGenres(data.genres);
+    fetchMovieDetails(movieId)
+      .then(function (response) {
+        setMovie(response.data);
+        setGenres(response.data.genres);
       })
-      .catch(err => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   }, [movieId]);
 
   const yearCount = () => {

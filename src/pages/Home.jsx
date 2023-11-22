@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLocation } from 'react-router-dom';
-
+import fetchTrends from '../components/FetchAPIs/FetchAPIs';
 import css from '../components/styles/home.module.css';
 
 const Home = () => {
@@ -18,14 +18,13 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetch(
-      'https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=a42bf4f31f7d8fb3cfc076b340ef7462'
-    )
-      .then(res => res.json())
-      .then(data => {
-        setTrends(data.results);
+    fetchTrends()
+      .then(function (response) {
+        setTrends(response.data.results);
       })
-      .catch(err => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   return (

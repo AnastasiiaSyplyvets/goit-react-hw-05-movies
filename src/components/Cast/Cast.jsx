@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Fetchcast from '../FetchAPIs/FetchCast';
 
 import css from '../../components/styles/cast.module.css';
 
@@ -13,17 +14,15 @@ function Cast() {
   const apiKey = 'a42bf4f31f7d8fb3cfc076b340ef7462';
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=a42bf4f31f7d8fb3cfc076b340ef7462`
-    )
-      .then(res => res.json())
-      .then(data => {
-        setActors(data.cast);
+    Fetchcast(movieId)
+      .then(function (response) {
+        setActors(response.data.cast);
       })
-      .catch(err => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   }, [movieId]);
 
-  console.log(actors);
   return (
     <>
       {actors.map(actor => (
