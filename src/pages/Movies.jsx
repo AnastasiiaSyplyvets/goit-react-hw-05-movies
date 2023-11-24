@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import fetchMovies from '../components/FetchAPIs/fetchMovies';
 import { toast } from 'react-toastify';
+
+import { MovieList } from '../components/MovieList/MovieList';
 
 import 'toastify-js/src/toastify.css';
 
@@ -17,9 +19,6 @@ const Movies = () => {
 
   const [SearchParams, setSearchParams] = useSearchParams();
   const MovieName = SearchParams.get('query');
-  const location = useLocation();
-
-  console.log(location);
 
   // const visibleMovies = SearchedMovie.filter(item => item.includes(MovieName));
 
@@ -136,18 +135,21 @@ const Movies = () => {
 
       {SearchedMovie &&
         SearchedMovie.map(movie => {
+          console.log(movie.title);
+
           return (
-            <ul className={css.movieList} key={movie.id}>
-              <li>
-                <Link
-                  state={{ from: location }}
-                  onClick={getMovieId}
-                  to={`/movies/${movie.id}`}
-                >
-                  {movie.title}
-                </Link>
-              </li>
-            </ul>
+            <MovieList getMovieId={getMovieId} movie={movie} key={movie.id} />
+            // <ul className={css.movieList} key={movie.id}>
+            //   <li>
+            //     <Link
+            //       state={{ from: location }}
+            //       onClick={getMovieId}
+            //       to={`/movies/${movie.id}`}
+            //     >
+            //       {movie.title}
+            //     </Link>
+            //   </li>
+            // </ul>
           );
         })}
     </>

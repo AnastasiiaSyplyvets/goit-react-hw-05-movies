@@ -40,8 +40,8 @@ const MovieDetails = ({ id }) => {
   console.log(location);
   return (
     <div className={css.movieContainer}>
-      {/* <Link to={location.state?.from ?? '/'}>Go back</Link> */}
-      <Link to={location.state.from ?? '/'}>Go back</Link>
+      <Link to={location.state?.from ?? '/'}>Go back</Link>
+
       <div className={css.description}>
         <img
           className={css.posterImg}

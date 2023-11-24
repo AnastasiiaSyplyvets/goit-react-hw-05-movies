@@ -1,13 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Link, useSearchParams, useLocation } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import fetchTrends from '../components/FetchAPIs/FetchAPIs';
+import { MovieList } from '../components/MovieList/MovieList';
 import css from '../components/styles/home.module.css';
 
 const Home = () => {
   const [trends, setTrends] = useState([]);
   const [params, setParams] = useSearchParams();
-  const location = useLocation();
+  // const location = useLocation();
 
   // const { movieId } = useParams();
 
@@ -33,14 +34,7 @@ const Home = () => {
       <ul>
         {trends.map(film =>
           film.title ? (
-            <Link
-              state={location}
-              onClick={handleTrend}
-              to={`/movies/${film.id}`}
-              key={film.id}
-            >
-              <li>{film.title}</li>
-            </Link>
+            <MovieList movie={film} onClickFunction={handleTrend} />
           ) : null
         )}
       </ul>
