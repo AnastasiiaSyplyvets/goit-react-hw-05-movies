@@ -24,7 +24,7 @@ const Movies = () => {
 
   const handleInputValue = e => {
     setSearchQuery(e.target.value);
-    setSearchParams({ query: e.target.value });
+    // setSearchParams({ query: e.target.value });
 
     // location.state = e.target.value;
 
@@ -75,9 +75,7 @@ const Movies = () => {
         theme: 'colored',
       });
     }
-    setSearchParams(prevParams => {
-      return prevParams + { query: searchQuery };
-    });
+    setSearchParams({ query: searchQuery });
 
     // fetchRequest();
   };
