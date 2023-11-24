@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import fetchTrends from '../components/FetchAPIs/FetchAPIs';
-import { MovieList } from '../components/MovieList/MovieList';
+import { MovieList } from 'components/MovieList/MovieList.1';
 import css from '../components/styles/home.module.css';
 
 const Home = () => {

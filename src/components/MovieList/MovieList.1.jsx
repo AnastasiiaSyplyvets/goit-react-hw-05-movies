@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import css from '../styles/movies.module.css';
-import PropTypes from 'prop-types';
 
 export const MovieList = ({ movie, onClickFunction }) => {
   const location = useLocation();
@@ -24,9 +23,4 @@ export const MovieList = ({ movie, onClickFunction }) => {
       </li>
     </ul>
   );
-};
-
-MovieList.propTypes = {
-  movie: PropTypes.object,
-  onClickFunction: PropTypes.func,
 };

@@ -38,8 +38,6 @@ function Cast() {
           </li>
         </ul>
       ))}
-
-      <p>CAST</p>
     </>
   );
 }

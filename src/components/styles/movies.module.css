@@ -41,3 +41,21 @@ input:focus {
   margin-bottom: 10px;
   list-style: none;
 }
+
+.movieListLink {
+  color: rgba(44, 94, 95, 0.8795167725293243);
+  text-decoration: none;
+  font-weight: 500;
+}
+.movieListLink:hover {
+  color: rgb(34, 193, 195);
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: black;
+}
