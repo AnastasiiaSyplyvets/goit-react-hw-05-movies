@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import fetchMovieDetails from '../FetchAPIs/FetchMovieDetails';
@@ -10,9 +10,9 @@ const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState([]);
   const location = useLocation();
-  const backLinkRef = useRef(location.state?.from ?? './movies');
-
-  console.log(backLinkRef);
+  // const backLinkRef = useRef(location.state?.from ?? './movies');
+  const defaultImg =
+    '<https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700>';
 
   const { movieId } = useParams();
 
@@ -44,10 +44,19 @@ const MovieDetails = ({ id }) => {
 
       <div className={css.description}>
         <img
+          src={
+            movieUrl ? `${baseUrl}${movieUrl}?api_key=${ApiKey}` : defaultImg
+          }
+          width={250}
+          alt="poster film"
+          className={css.posterImg}
+        />
+
+        {/* <img
           className={css.posterImg}
           src={`${baseUrl}${movieUrl}?api_key=${ApiKey}`}
           alt="movie poster"
-        />
+        /> */}
         <div>
           <h2>
             {movie.title} ({yearCount()})

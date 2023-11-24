@@ -75,7 +75,9 @@ const Movies = () => {
         theme: 'colored',
       });
     }
-    setSearchParams({ query: searchQuery });
+    setSearchParams(prevParams => {
+      return prevParams + { query: searchQuery };
+    });
 
     fetchRequest();
   };
@@ -120,8 +122,6 @@ const Movies = () => {
     );
   };
 
-  console.log('SearchedMovie', SearchedMovie);
-
   return (
     <>
       <form onSubmit={handleFormSubmit}>
@@ -139,17 +139,6 @@ const Movies = () => {
 
           return (
             <MovieList getMovieId={getMovieId} movie={movie} key={movie.id} />
-            // <ul className={css.movieList} key={movie.id}>
-            //   <li>
-            //     <Link
-            //       state={{ from: location }}
-            //       onClick={getMovieId}
-            //       to={`/movies/${movie.id}`}
-            //     >
-            //       {movie.title}
-            //     </Link>
-            //   </li>
-            // </ul>
           );
         })}
     </>

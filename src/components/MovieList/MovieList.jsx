@@ -22,6 +22,5 @@ export const MovieList = ({ movie, onClickFunction }) => {
 
 MovieList.propTypes = {
   movie: PropTypes.object,
-
   onClickFunction: PropTypes.func,
 };

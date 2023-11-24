@@ -34,7 +34,11 @@ const Home = () => {
       <ul>
         {trends.map(film =>
           film.title ? (
-            <MovieList movie={film} onClickFunction={handleTrend} />
+            <MovieList
+              movie={film}
+              onClickFunction={handleTrend}
+              key={film.id}
+            />
           ) : null
         )}
       </ul>
