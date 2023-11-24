@@ -39,4 +39,5 @@ input:focus {
 .movieList {
   margin: 0;
   margin-bottom: 10px;
+  list-style: none;
 }

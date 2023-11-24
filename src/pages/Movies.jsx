@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import fetchMovies from '../components/FetchAPIs/fetchMovies';
@@ -31,58 +31,7 @@ const Movies = () => {
     // setParams({ filter: e.target.value });
   };
 
-  const fetchRequest = () => {
-    if (searchQuery === '') {
-      return;
-    }
-
-    console.log('query', MovieName);
-
-    fetchMovies(MovieName)
-      .then(function (response) {
-        if (response.data.results.length === 0) {
-          toast.error('No movies found :(', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-          });
-        }
-
-        setSearchedMovie(response.data.results);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-  const handleFormSubmit = e => {
-    e.preventDefault();
-
-    if (searchQuery === '') {
-      toast.info('Please enter movie name!', {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
-    }
-    setSearchParams(prevParams => {
-      return prevParams + { query: searchQuery };
-    });
-
-    fetchRequest();
-  };
-
-  // useEffect(() => {
+  // const fetchRequest = () => {
   //   if (searchQuery === '') {
   //     return;
   //   }
@@ -109,7 +58,56 @@ const Movies = () => {
   //     .catch(function (error) {
   //       console.log(error);
   //     });
-  // }, [MovieName, searchQuery]);
+  // };
+
+  const handleFormSubmit = e => {
+    e.preventDefault();
+
+    if (searchQuery === '') {
+      toast.info('Please enter movie name!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+    setSearchParams(prevParams => {
+      return prevParams + { query: searchQuery };
+    });
+
+    // fetchRequest();
+  };
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      return;
+    }
+
+    fetchMovies(MovieName)
+      .then(function (response) {
+        if (response.data.results.length === 0) {
+          toast.error('No movies found :(', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
+        }
+
+        setSearchedMovie(response.data.results);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [MovieName, searchQuery]);
 
   const getMovieId = () => {
     if (!SearchedMovie) {
