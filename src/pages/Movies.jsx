@@ -15,13 +15,17 @@ const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [SearchedMovie, setSearchedMovie] = useState(null);
 
-  const [params, setParams] = useSearchParams();
-
+  const [SearchParams, setSearchParams] = useSearchParams();
+  const MovieName = SearchParams.get('query');
   const location = useLocation();
+
+  console.log(location);
+
+  // const visibleMovies = SearchedMovie.filter(item => item.includes(MovieName));
 
   const handleInputValue = e => {
     setSearchQuery(e.target.value);
-    setParams({ query: e.target.value });
+    setSearchParams({ query: e.target.value });
 
     // location.state = e.target.value;
 
@@ -33,7 +37,9 @@ const Movies = () => {
       return;
     }
 
-    fetchMovies(searchQuery)
+    console.log('query', MovieName);
+
+    fetchMovies(MovieName)
       .then(function (response) {
         if (response.data.results.length === 0) {
           toast.error('No movies found :(', {
@@ -70,23 +76,52 @@ const Movies = () => {
         theme: 'colored',
       });
     }
+    setSearchParams({ query: searchQuery });
 
     fetchRequest();
-
-    // setParams({ query: input.target.value });
   };
+
+  // useEffect(() => {
+  //   if (searchQuery === '') {
+  //     return;
+  //   }
+
+  //   console.log('query', MovieName);
+
+  //   fetchMovies(MovieName)
+  //     .then(function (response) {
+  //       if (response.data.results.length === 0) {
+  //         toast.error('No movies found :(', {
+  //           position: 'top-right',
+  //           autoClose: 3000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: 'colored',
+  //         });
+  //       }
+
+  //       setSearchedMovie(response.data.results);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }, [MovieName, searchQuery]);
 
   const getMovieId = () => {
     if (!SearchedMovie) {
       return;
     }
+
     SearchedMovie.map(movie =>
       // setParams({ filter: e.target.value });
-      setParams({ id: movie.id })
+      setSearchParams({ id: movie.id })
     );
   };
 
-  console.log(params);
+  console.log('SearchedMovie', SearchedMovie);
 
   return (
     <>

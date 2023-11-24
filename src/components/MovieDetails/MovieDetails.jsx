@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useRef } from 'react';
+import { useRef } from 'react';
 import { useState, useEffect, Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import fetchMovieDetails from '../FetchAPIs/FetchMovieDetails';
@@ -10,7 +10,9 @@ const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState([]);
   const location = useLocation();
-  // const backLinkRef = useRef(location.state?.from ?? './movies');
+  const backLinkRef = useRef(location.state?.from ?? './movies');
+
+  console.log(backLinkRef);
 
   const { movieId } = useParams();
 
@@ -35,11 +37,11 @@ const MovieDetails = ({ id }) => {
     }
     return movie.release_date.slice(0, 4);
   };
-  console.log('location moviedetails', location);
+  console.log(location);
   return (
     <div className={css.movieContainer}>
-      <Link to={location.state?.from ?? '/'}>Go back</Link>
-      {/* <Link to={backLinkRef.current}>Go back</Link> */}
+      {/* <Link to={location.state?.from ?? '/'}>Go back</Link> */}
+      <Link to={location.state.from ?? '/'}>Go back</Link>
       <div className={css.description}>
         <img
           className={css.posterImg}
