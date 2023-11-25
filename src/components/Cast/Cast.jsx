@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import Fetchcast from '../FetchAPIs/FetchCast';
 
 import css from '../../components/styles/cast.module.css';

@@ -1,5 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
+
 import css from '../styles/movies.module.css';
+
 import PropTypes from 'prop-types';
 
 export const MovieList = ({ movie, onClickFunction }) => {
@@ -8,11 +10,6 @@ export const MovieList = ({ movie, onClickFunction }) => {
   return (
     <ul className={css.movieList}>
       <li>
-        <span>
-          <svg class="icon" width="20px" height="20px">
-            <use href="../styles/symbol-defs.svg#icon-play" />
-          </svg>
-        </span>
         <Link
           className={css.movieListLink}
           state={{ from: location }}
