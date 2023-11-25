@@ -3,12 +3,14 @@ import { useState, useEffect, Suspense, useRef } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 
 import fetchMovieDetails from '../FetchAPIs/FetchMovieDetails';
+import Loader from '../Loader/Loader';
 
 import css from '../../components/styles/movieDetails.module.css';
 
 const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? './movies');
 
@@ -22,6 +24,8 @@ const MovieDetails = ({ id }) => {
   const ApiKey = 'a42bf4f31f7d8fb3cfc076b340ef7462';
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetchMovieDetails(movieId)
       .then(function (response) {
         setMovie(response.data);
@@ -29,7 +33,8 @@ const MovieDetails = ({ id }) => {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      })
+      .finally(setIsLoading(false));
   }, [movieId]);
 
   const yearCount = () => {
@@ -38,10 +43,12 @@ const MovieDetails = ({ id }) => {
     }
     return movie.release_date.slice(0, 4);
   };
-
+  console.log(isLoading);
   return (
     <div className={css.movieContainer}>
       <Link to={backLinkRef.current ?? '/'}>Go back</Link>
+
+      {isLoading && <Loader />}
 
       <div className={css.description}>
         <img

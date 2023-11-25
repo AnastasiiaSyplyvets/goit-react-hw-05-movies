@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import fetchMovies from '../components/FetchAPIs/fetchMovies';
 import SearchForm from '../components/SearchForm/SearchForm';
 import { MovieList } from 'components/MovieList/MovieList.1';
+import Loader from '../components/Loader/Loader';
 
 import { toast } from 'react-toastify';
 
@@ -14,6 +15,7 @@ import '../components/movies.css';
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [SearchedMovie, setSearchedMovie] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const movieName = searchParams.get('query');
@@ -45,6 +47,8 @@ const Movies = () => {
       return;
     }
 
+    setIsLoading(true);
+
     fetchMovies(movieName)
       .then(function (response) {
         if (response.data.results.length === 0) {
@@ -64,7 +68,8 @@ const Movies = () => {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      })
+      .finally(setIsLoading(false));
   }, [movieName]);
 
   const getMovieId = () => {
@@ -81,7 +86,7 @@ const Movies = () => {
         handleFormSubmit={handleFormSubmit}
         handleInputValue={handleInputValue}
       />
-
+      {isLoading && <Loader />}
       {SearchedMovie &&
         SearchedMovie.map(movie => {
           return (
