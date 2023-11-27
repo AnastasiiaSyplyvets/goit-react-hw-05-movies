@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import fetchTrends from '../components/FetchAPIs/FetchAPIs';
-import { MovieList } from 'components/MovieList/MovieList.1';
+import { MovieList } from 'components/MovieList/MovieList';
 
 import css from '../components/styles/home.module.css';
 
@@ -28,17 +28,8 @@ const Home = () => {
   return (
     <>
       <p className={css.title}>Trending Today</p>
-      <ul>
-        {trends.map(film =>
-          film.title ? (
-            <MovieList
-              movie={film}
-              onClickFunction={handleTrend}
-              key={film.id}
-            />
-          ) : null
-        )}
-      </ul>
+
+      <MovieList movies={trends} onClickFunction={handleTrend} />
     </>
   );
 };

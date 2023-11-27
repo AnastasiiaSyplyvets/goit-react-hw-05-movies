@@ -50,3 +50,7 @@ input:focus {
 .movieListLink:hover {
   color: rgb(34, 193, 195);
 }
+
+.subTitle {
+  margin-bottom: 10px;
+}

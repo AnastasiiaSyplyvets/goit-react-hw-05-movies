@@ -4,26 +4,30 @@ import css from '../styles/movies.module.css';
 
 import PropTypes from 'prop-types';
 
-export const MovieList = ({ movie, onClickFunction }) => {
+export const MovieList = ({ movies, onClickFunction }) => {
   const location = useLocation();
 
   return (
     <ul className={css.movieList}>
-      <li>
-        <Link
-          className={css.movieListLink}
-          state={{ from: location }}
-          onClick={onClickFunction}
-          to={`/movies/${movie.id}`}
-        >
-          {movie.title}
-        </Link>
-      </li>
+      {movies.map(movie => {
+        return (
+          <li className={css.subTitle} key={movie.id}>
+            <Link
+              className={css.movieListLink}
+              state={{ from: location }}
+              onClick={onClickFunction}
+              to={`/movies/${movie.id}`}
+            >
+              {movie.title}
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 };
 
 MovieList.propTypes = {
-  movie: PropTypes.object,
+  movies: PropTypes.array,
   onClickFunction: PropTypes.func,
 };

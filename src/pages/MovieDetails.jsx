@@ -2,10 +2,10 @@ import React from 'react';
 import { useState, useEffect, Suspense, useRef } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 
-import fetchMovieDetails from '../FetchAPIs/FetchMovieDetails';
-import Loader from '../Loader/Loader';
+import fetchMovieDetails from '../components/FetchAPIs/FetchMovieDetails';
+import Loader from '../components/Loader/Loader';
 
-import css from '../../components/styles/movieDetails.module.css';
+import css from '../components/styles/movieDetails.module.css';
 
 const MovieDetails = ({ id }) => {
   const [movie, setMovie] = useState({});
@@ -43,7 +43,7 @@ const MovieDetails = ({ id }) => {
     }
     return movie.release_date.slice(0, 4);
   };
-  console.log(isLoading);
+
   return (
     <div className={css.movieContainer}>
       <Link to={backLinkRef.current ?? '/'}>Go back</Link>

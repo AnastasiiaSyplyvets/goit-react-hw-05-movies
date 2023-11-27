@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import fetchMovies from '../components/FetchAPIs/fetchMovies';
 import SearchForm from '../components/SearchForm/SearchForm';
-import { MovieList } from 'components/MovieList/MovieList.1';
+import { MovieList } from 'components/MovieList/MovieList';
 import Loader from '../components/Loader/Loader';
 
 import { toast } from 'react-toastify';
@@ -14,7 +14,7 @@ import '../components/movies.css';
 
 const Movies = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [SearchedMovie, setSearchedMovie] = useState(null);
+  const [searchedMovie, setSearchedMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -73,11 +73,11 @@ const Movies = () => {
   }, [movieName]);
 
   const getMovieId = () => {
-    if (!SearchedMovie) {
+    if (!searchedMovie) {
       return;
     }
 
-    SearchedMovie.map(movie => setSearchParams({ id: movie.id }));
+    searchedMovie.map(movie => setSearchParams({ id: movie.id }));
   };
 
   return (
@@ -87,12 +87,9 @@ const Movies = () => {
         handleInputValue={handleInputValue}
       />
       {isLoading && <Loader />}
-      {SearchedMovie &&
-        SearchedMovie.map(movie => {
-          return (
-            <MovieList getMovieId={getMovieId} movie={movie} key={movie.id} />
-          );
-        })}
+      {searchedMovie && (
+        <MovieList getMovieId={getMovieId} movies={searchedMovie} />
+      )}
     </>
   );
 };

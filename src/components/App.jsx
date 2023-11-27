@@ -8,8 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Home = lazy(() => import('../pages/Home'));
 const Movies = lazy(() => import('../pages/Movies'));
-const NotFound = lazy(() => import('../pages/NotFound'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
 const Cast = lazy(() => import('./Cast/Cast'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
 
@@ -25,7 +24,7 @@ export const App = () => {
             <Route path="reviews" element={<Reviews />} />
           </Route>
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Home />} />
         </Route>
       </Routes>
       <ToastContainer />

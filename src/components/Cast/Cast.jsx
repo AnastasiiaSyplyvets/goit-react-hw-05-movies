@@ -14,6 +14,9 @@ function Cast() {
 
   const apiKey = 'a42bf4f31f7d8fb3cfc076b340ef7462';
 
+  const defaultImg =
+    'https://ireland.apollo.olxcdn.com/v1/files/0iq0gb9ppip8-UA/image;s=1000x700';
+
   useEffect(() => {
     Fetchcast(movieId)
       .then(function (response) {
@@ -26,19 +29,27 @@ function Cast() {
 
   return (
     <>
-      {actors.map(actor => (
-        <ul key={actor.id}>
-          <li key={actor.id}>
-            <img
-              className={css.actorImg}
-              src={`${baseApiUrl}${actor.profile_path}?api_key=${apiKey}`}
-              alt={actor.name}
-            />
-            <p className={css.actorText}>{actor.name}</p>
-            <p className={css.actorText}>Character: {actor.character}</p>
-          </li>
-        </ul>
-      ))}
+      {actors.length === 0 ? (
+        <p>There are no actors for this movie found!</p>
+      ) : (
+        actors.map(actor => (
+          <ul key={actor.id}>
+            <li key={actor.id}>
+              <img
+                className={css.actorImg}
+                src={
+                  actor.profile_path
+                    ? `${baseApiUrl}${actor.profile_path}?api_key=${apiKey}`
+                    : defaultImg
+                }
+                alt={actor.name}
+              />
+              <p className={css.actorText}>{actor.name}</p>
+              <p className={css.actorText}>Character: {actor.character}</p>
+            </li>
+          </ul>
+        ))
+      )}
     </>
   );
 }
