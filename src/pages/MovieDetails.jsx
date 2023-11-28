@@ -45,53 +45,55 @@ const MovieDetails = ({ id }) => {
   };
 
   return (
-    <div className={css.movieContainer}>
-      <Link to={backLinkRef.current ?? '/'}>Go back</Link>
+    <Suspense fallback={<Loader />}>
+      <div className={css.movieContainer}>
+        <Link to={backLinkRef.current ?? '/'}>Go back</Link>
 
-      {isLoading && <Loader />}
+        {isLoading && <Loader />}
 
-      <div className={css.description}>
-        <img
-          src={
-            movieUrl ? `${baseUrl}${movieUrl}?api_key=${ApiKey}` : defaultImg
-          }
-          height={300}
-          alt="poster film"
-          className={css.posterImg}
-        />
+        <div className={css.description}>
+          <img
+            src={
+              movieUrl ? `${baseUrl}${movieUrl}?api_key=${ApiKey}` : defaultImg
+            }
+            height={300}
+            alt="poster film"
+            className={css.posterImg}
+          />
 
-        <div>
-          <h2>
-            {movie.title} ({yearCount()})
-          </h2>
-          <p>User score: {movie.vote_average}%</p>
-          <h3>Overwiew</h3>
-          <p>{movie.overview}</p>
-          <h4>Genres</h4>
-          <div className={css.genres}>
-            {genres.map(item => (
-              <ul className={css.genre} key={item.id}>
-                <li className={css.list}>{item.name}</li>
-              </ul>
-            ))}
+          <div>
+            <h2>
+              {movie.title} ({yearCount()})
+            </h2>
+            <p>User score: {movie.vote_average}%</p>
+            <h3>Overwiew</h3>
+            <p>{movie.overview}</p>
+            <h4>Genres</h4>
+            <div className={css.genres}>
+              {genres.map(item => (
+                <ul className={css.genre} key={item.id}>
+                  <li className={css.list}>{item.name}</li>
+                </ul>
+              ))}
+            </div>
           </div>
         </div>
+        <div className={css.info}>
+          <h4 className={css.infoTitle}>Additional information</h4>
+          <ul>
+            <li>
+              <Link to={`/movies/${movieId}/cast`}>CAST</Link>
+            </li>
+            <li>
+              <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+            </li>
+          </ul>
+        </div>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
       </div>
-      <div className={css.info}>
-        <h4 className={css.infoTitle}>Additional information</h4>
-        <ul>
-          <li>
-            <Link to={`/movies/${movieId}/cast`}>CAST</Link>
-          </li>
-          <li>
-            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-          </li>
-        </ul>
-      </div>
-      <Suspense>
-        <Outlet />
-      </Suspense>
-    </div>
+    </Suspense>
   );
 };
 
